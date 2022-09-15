@@ -4,30 +4,22 @@ class Program
 {
     public static void Main(string[] args)
     {
-        Console.WriteLine("Skriv in för och efternamn med små bokstäver");
-        string nmn = Console.ReadLine();
-        string S = nmn.Substring(0, 1);
-        string nmnS = nmn.Substring(0, 1).ToUpper();
-        nmn = nmn.Replace(S, nmnS);
-        bool anka = false;
-        string nstrg = "";
-        foreach (char c in nmn)
-        {
-            if (c == ' ')
+        string s = "Detta är en sträng som du ska ändra";
+        string hårSträng = "";
+        int ankSlag = 0;
+
+        foreach(char c in s)
+        {            if(c == ' ')
             {
-                anka = true;
-                nstrg += c;
-            }
-            else if (anka == true && c != ' ')
-            {
-                nstrg += char.ToUpper(c);
-                anka = false;
+                ankSlag++;
+                hårSträng += '*';
             }
             else
             {
-                nstrg += c;
+                hårSträng += c;
             }
         }
-        Console.WriteLine(nstrg);
+        Console.WriteLine($"Antal mellanslag: {ankSlag}, Ny text: {hårSträng}");
+
     }
 }
