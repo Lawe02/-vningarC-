@@ -1,0 +1,15 @@
+C:\Users\Lawe Zangena\csharp\Övningar\bin\Debug\net6.0\Övningar.exe
+C:\Users\Lawe Zangena\csharp\Övningar\bin\Debug\net6.0\Övningar.deps.json
+C:\Users\Lawe Zangena\csharp\Övningar\bin\Debug\net6.0\Övningar.runtimeconfig.json
+C:\Users\Lawe Zangena\csharp\Övningar\bin\Debug\net6.0\Övningar.dll
+C:\Users\Lawe Zangena\csharp\Övningar\bin\Debug\net6.0\ref\Övningar.dll
+C:\Users\Lawe Zangena\csharp\Övningar\bin\Debug\net6.0\Övningar.pdb
+C:\Users\Lawe Zangena\csharp\Övningar\obj\Debug\net6.0\Övningar.csproj.AssemblyReference.cache
+C:\Users\Lawe Zangena\csharp\Övningar\obj\Debug\net6.0\Övningar.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Lawe Zangena\csharp\Övningar\obj\Debug\net6.0\Övningar.AssemblyInfoInputs.cache
+C:\Users\Lawe Zangena\csharp\Övningar\obj\Debug\net6.0\Övningar.AssemblyInfo.cs
+C:\Users\Lawe Zangena\csharp\Övningar\obj\Debug\net6.0\Övningar.csproj.CoreCompileInputs.cache
+C:\Users\Lawe Zangena\csharp\Övningar\obj\Debug\net6.0\Övningar.dll
+C:\Users\Lawe Zangena\csharp\Övningar\obj\Debug\net6.0\ref\Övningar.dll
+C:\Users\Lawe Zangena\csharp\Övningar\obj\Debug\net6.0\Övningar.pdb
+C:\Users\Lawe Zangena\csharp\Övningar\obj\Debug\net6.0\Övningar.genruntimeconfig.cache
