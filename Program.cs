@@ -4,22 +4,22 @@ class Program
 {
     public static void Main(string[] args)
     {
-        string s = "Detta är en sträng som du ska ändra";
-        string hårSträng = "";
-        int ankSlag = 0;
-
-        foreach(char c in s)
-        {            if(c == ' ')
-            {
-                ankSlag++;
-                hårSträng += '*';
+        Console.WriteLine("Skriv in din mailadress.");
+        string mail = Console.ReadLine();
+        if(mail.Contains('@'))
+        {
+            if(mail.Contains('.'))
+                {
+                string h = mail.Substring(mail.LastIndexOf('.'));
+                if (h.Length == 3 || h.Length == 4)
+                    Console.WriteLine("Giltig");
+                else
+                    Console.WriteLine("Ogiltig");
             }
             else
-            {
-                hårSträng += c;
-            }
+                Console.WriteLine("Ogiltig");
         }
-        Console.WriteLine($"Antal mellanslag: {ankSlag}, Ny text: {hårSträng}");
-
+        else
+            Console.WriteLine("Ogiltig");
     }
 }
