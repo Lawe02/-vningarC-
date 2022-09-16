@@ -1,25 +1,28 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using System;
+
 namespace Övnnigar;
 class Program
 {
     public static void Main(string[] args)
     {
-        Console.WriteLine("Skriv in din mailadress.");
-        string mail = Console.ReadLine();
-        if(mail.Contains('@'))
+        Console.WriteLine("Skriv en text.");
+        string txt = Console.ReadLine();
+        txt = txt.Trim();
+        int antalMellanslag = 1;
+        bool mellanrum = true;
+
+        foreach(char c in txt)
         {
-            if(mail.Contains('.'))
-                {
-                string h = mail.Substring(mail.LastIndexOf('.'));
-                if (h.Length == 3 || h.Length == 4)
-                    Console.WriteLine("Giltig");
-                else
-                    Console.WriteLine("Ogiltig");
+            if(c == ' ' && mellanrum == true)
+            {
+                antalMellanslag++;
+                mellanrum = false;
             }
-            else
-                Console.WriteLine("Ogiltig");
+            else if(c != ' ')
+                mellanrum = true;
+            
         }
-        else
-            Console.WriteLine("Ogiltig");
+        Console.WriteLine($"Antal ord: {antalMellanslag}");
+
     }
 }
