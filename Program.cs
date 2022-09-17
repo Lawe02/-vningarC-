@@ -5,24 +5,25 @@ class Program
 {
     public static void Main(string[] args)
     {
-        Console.WriteLine("Skriv en text.");
-        string txt = Console.ReadLine();
-        txt = txt.Trim();
-        int antalMellanslag = 1;
-        bool mellanrum = true;
+        Console.WriteLine("Mata in ett ord eller mening");
+        string kskDrom = Console.ReadLine();
+        string drom = "";
 
-        foreach(char c in txt)
+        foreach(char c in kskDrom)
         {
-            if(c == ' ' && mellanrum == true)
+            if (c != ' ')
             {
-                antalMellanslag++;
-                mellanrum = false;
+                drom += c;
             }
-            else if(c != ' ')
-                mellanrum = true;
-            
         }
-        Console.WriteLine($"Antal ord: {antalMellanslag}");
-
+        string revdrom = "";
+        for(int i = drom.Length - 1; i >=  0 ; i--)
+        {
+            revdrom += drom[i];
+        }
+        if (drom == revdrom)
+            Console.WriteLine("Detta är en palindrom: " + drom);
+        else
+            Console.WriteLine("Detta är inte en palindrom: " + revdrom);
     }
 }
