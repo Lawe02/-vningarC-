@@ -5,25 +5,22 @@ class Program
 {
     public static void Main(string[] args)
     {
-        Console.WriteLine("Mata in ett ord eller mening");
-        string kskDrom = Console.ReadLine();
-        string drom = "";
-
-        foreach(char c in kskDrom)
+        int[] talen = new int [4];
+        int i = 0;
+        while (i<=3)
         {
-            if (c != ' ')
+            Console.WriteLine("Mata in ett tal");
+            talen[i] = Convert.ToInt32(Console.ReadLine());
+            i++;
+        }
+        int störstTal =0;
+        foreach(int tal in talen)
+        {
+            if(tal > störstTal)
             {
-                drom += c;
+                störstTal = tal;
             }
         }
-        string revdrom = "";
-        for(int i = drom.Length - 1; i >=  0 ; i--)
-        {
-            revdrom += drom[i];
-        }
-        if (drom == revdrom)
-            Console.WriteLine("Detta är en palindrom: " + drom);
-        else
-            Console.WriteLine("Detta är inte en palindrom: " + revdrom);
+        Console.WriteLine(störstTal);
     }
 }
