@@ -5,23 +5,12 @@ class Program
 {
     public static void Main(string[] args)
     {
-        List<int> talen = new List<int>();
-        int i = 0;
-        while (i<=3)
+        string[] veckodagar = new[] { "Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag" };
+        while (true)
         {
-            Console.WriteLine("Mata in ett tal");
-            int inmatatTal = Convert.ToInt32(Console.ReadLine());
-            talen.Add(inmatatTal);
-            i++;
+            Console.WriteLine("Mata in 1-7");
+            int dag = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine($"Dag {dag} på veckan är {veckodagar[dag-1]}");
         }
-        int störstTal =0;
-        foreach(int tal in talen)
-        {
-            if(tal > störstTal)
-            {
-                störstTal = tal;
-            }
-        }
-        Console.WriteLine("Största talet är "+ störstTal);
     }
 }
