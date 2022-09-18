@@ -5,12 +5,21 @@ class Program
 {
     public static void Main(string[] args)
     {
-        string[] veckodagar = new[] { "Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag" };
-        while (true)
+        Console.WriteLine("Mata in hur många tal som ska adderas");
+        int antal = Convert.ToInt32(Console.ReadLine());
+        int[] talArr = new int[antal];
+        int summa = 0;
+
+        while(antal > 0)
         {
-            Console.WriteLine("Mata in 1-7");
-            int dag = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine($"Dag {dag} på veckan är {veckodagar[dag-1]}");
+            Console.WriteLine("Skriv in ett tal som ska adderas");
+            talArr[antal-1] = Convert.ToInt32(Console.ReadLine());
+            antal--;
         }
+        foreach(int a in talArr)
+        {
+            summa += a;
+        }
+        Console.WriteLine($"Summan är {summa}");
     }
 }
