@@ -5,12 +5,13 @@ class Program
 {
     public static void Main(string[] args)
     {
-        int[] talen = new int [4];
+        List<int> talen = new List<int>();
         int i = 0;
         while (i<=3)
         {
             Console.WriteLine("Mata in ett tal");
-            talen[i] = Convert.ToInt32(Console.ReadLine());
+            int inmatatTal = Convert.ToInt32(Console.ReadLine());
+            talen.Add(inmatatTal);
             i++;
         }
         int störstTal =0;
@@ -21,6 +22,6 @@ class Program
                 störstTal = tal;
             }
         }
-        Console.WriteLine(störstTal);
+        Console.WriteLine("Största talet är "+ störstTal);
     }
 }
