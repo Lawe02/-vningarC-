@@ -5,21 +5,15 @@ class Program
 {
     public static void Main(string[] args)
     {
-        Console.WriteLine("Mata in hur många tal som ska adderas");
-        int antal = Convert.ToInt32(Console.ReadLine());
-        int[] talArr = new int[antal];
-        int summa = 0;
-
-        while(antal > 0)
+        var list = new List<string> { "Kalle", "aa", "ada", "Nisse" };
+        int antalSträngar = 0;
+        foreach(string str in list)
         {
-            Console.WriteLine("Skriv in ett tal som ska adderas");
-            talArr[antal-1] = Convert.ToInt32(Console.ReadLine());
-            antal--;
+            if(str.Length >= 2 && str[0] == str[str.Length-1])
+            {
+                antalSträngar++;
+            }
         }
-        foreach(int a in talArr)
-        {
-            summa += a;
-        }
-        Console.WriteLine($"Summan är {summa}");
+        Console.WriteLine($"Antalsträngar som upffyller kraven är {antalSträngar}");
     }
 }
