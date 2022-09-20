@@ -6,7 +6,7 @@ class Program
     public static void Main(string[] args)
     {
         var tabell = new List<int>();
-        int minst = 2147483647, störst =0, summa = 0, antal=0;
+        int störst = 0, summa = 0, antal=0;
 
         while(true)
         {
@@ -20,6 +20,7 @@ class Program
                 antal++;
             }
         }
+        int minst = tabell[0];
         foreach(int i in tabell)
         {
             summa += i;
