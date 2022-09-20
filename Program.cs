@@ -6,7 +6,7 @@ class Program
     public static void Main(string[] args)
     {
         var tabell = new List<int>();
-        int minst =0, störst =0, summa = 0, antal=0;
+        int minst = 2147483647, störst =0, summa = 0, antal=0;
 
         while(true)
         {
@@ -25,8 +25,8 @@ class Program
             summa += i;
             if (i > störst)
                 störst = i;
-            if(i < minst)
-                minst =i;
+            if (i < minst)
+                minst = i;
         }
             
         Console.WriteLine($"Du matade in {antal} tal");
