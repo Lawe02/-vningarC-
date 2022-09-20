@@ -5,34 +5,20 @@ class Program
 {
     public static void Main(string[] args)
     {
-        var tabell = new List<int>();
-        int störst = 0, summa = 0, antal=0;
+        var tal = new List<int>() { 1, 2, 3, 4, 5, 6};
+        int i = 0;
 
-        while(true)
+        foreach(int num in tal.ToList())
         {
-            Console.WriteLine("Mata in tal - skriv N för att avsluta");
-            string tal = Console.ReadLine().ToUpper();
-            if (tal == "N")
-                break;
-            else
+            if((num % 2 !=0))
             {
-                tabell.Add(Convert.ToInt32(tal));
-                antal++;
+                tal[i] = 0;
             }
+            i++;
         }
-        int minst = tabell[0];
-        foreach(int i in tabell)
+        foreach(int num in tal)
         {
-            summa += i;
-            if (i > störst)
-                störst = i;
-            if (i < minst)
-                minst = i;
+            Console.WriteLine(num);   
         }
-            
-        Console.WriteLine($"Du matade in {antal} tal");
-        Console.WriteLine($"Summan är {summa}");
-        Console.WriteLine($"Medelvärde är {summa/antal}");
-        Console.WriteLine($"Min {minst} Störst {störst}");
     }
 }
