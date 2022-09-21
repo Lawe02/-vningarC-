@@ -5,20 +5,29 @@ class Program
 {
     public static void Main(string[] args)
     {
-        var tal = new List<int>() { 1, 2, 3, 4, 5, 6};
-        int i = 0;
+        Console.WriteLine("Ange hur många mätningar som ska matas in");
+        int ant = Convert.ToInt32(Console.ReadLine());
+        decimal[] arr = new decimal[ant];
+       
+        while (ant > 0)
+        {
+            Console.WriteLine("Lägg in en temperatur i celsius med decimal");
+            decimal temperatur = Convert.ToDecimal(Console.ReadLine());
+            arr[arr.Length - ant] = temperatur;
+            ant--;
+        }
 
-        foreach(int num in tal.ToList())
+        decimal störst = 0, minst = arr[0];
+
+        foreach (decimal temp in arr)
         {
-            if((num % 2 !=0))
-            {
-                tal[i] = 0;
-            }
-            i++;
+            if (temp < minst)
+                minst = temp;
+            if (temp > störst)
+                störst = temp;  
+            Console.WriteLine(temp);
         }
-        foreach(int num in tal)
-        {
-            Console.WriteLine(num);   
-        }
+        Console.WriteLine($"Minst: {minst}");
+        Console.WriteLine($"Störst: {störst}");
     }
 }
