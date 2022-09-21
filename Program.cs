@@ -7,29 +7,42 @@ class Program
     {
         Console.WriteLine("Ange hur många mätningar som ska matas in");
         int ant = Convert.ToInt32(Console.ReadLine());
-        decimal[] arr = new decimal[ant];
+        var cels = new List<decimal>();
+        var platser = new List<string>();
+
         decimal sum = 0;
 
         while (ant > 0)
         {
-            Console.WriteLine("Lägg in en temperatur i celsius med decimal");
+            Console.Write("Lägg in en temperatur i celsius:  ");
             decimal temperatur = Convert.ToDecimal(Console.ReadLine());
+            Console.Write("Ange platsen mätningen kommer ifrån:  ");
+            string plats = Console.ReadLine();
+            Console.WriteLine();
+            
+            platser.Add(plats);
+            cels.Add(temperatur);
+
             sum += temperatur;
-            arr[arr.Length - ant] = temperatur;
             ant--;
         }
 
-        decimal störst = 0, minst = arr[0];
+        decimal störst = 0, minst = cels[0];
 
-        foreach (decimal temp in arr)
+        foreach (decimal temp in cels)
         {
             if (temp < minst)
                 minst = temp;
             if (temp > störst)
                 störst = temp;  
-            Console.WriteLine(temp);
         }
-        Console.WriteLine($"Medel: {sum/arr.Length}");
+
+        for(int i = 0; i < cels.Count; i++)
+        {
+            Console.WriteLine($"Plats: {platser[i]}, Temperatur: {cels[i]}");
+        }
+
+        Console.WriteLine($"Medel: {sum/cels.Count}");
         Console.WriteLine($"Störst: {störst}");
     }
 }
