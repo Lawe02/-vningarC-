@@ -4,18 +4,22 @@ namespace Övnnigar;
 class Program
 {
     public static void Main(string[] args)
-    {
-        var strings = new string[] { "anka", "hår", "Korv", "stressmås", "Attackhelikopter"};
-        string ord = LängstaOrdet(strings);
-        Console.WriteLine(ord);
+    {       
+        Console.WriteLine("Ange lönen");
+        int lön = Convert.ToInt32(Console.ReadLine());
+        decimal netto = BruttoTillNetto(lön);
+        Console.WriteLine("Efterskatt  " + netto);
     }
-    static string LängstaOrdet(string[] arr, string lngst = "")
+
+    public static decimal BruttoTillNetto(int lön)
     {
-        foreach(string s in arr)
-        {
-            if (s.Length > lngst.Length)
-                lngst = s;
-        }
-        return lngst;
+        decimal res = 0;
+        if (lön >= 30000)
+            res = lön * 0.67m;
+        else if (lön < 15000)
+            res = lön * 0.88m;
+        else if(lön <15000 && lön < 30000)
+            res = lön * 0.72m;
+        return res;
     }
 }
