@@ -5,16 +5,17 @@ class Program
 {
     public static void Main(string[] args)
     {
-        Console.WriteLine("Hur gammal är du");
-        int age = Convert.ToInt32(Console.ReadLine());
-        string myndig = IsMyndig(age);
-        Console.WriteLine(myndig);
+        var strings = new string[] { "anka", "hår", "Korv", "stressmås", "Attackhelikopter"};
+        string ord = LängstaOrdet(strings);
+        Console.WriteLine(ord);
     }
-    static string IsMyndig(int ålder)
+    static string LängstaOrdet(string[] arr, string lngst = "")
     {
-        if (ålder >= 18)
-            return "Du är myndig";
-        else
-            return "Du är inte myndig";
+        foreach(string s in arr)
+        {
+            if (s.Length > lngst.Length)
+                lngst = s;
+        }
+        return lngst;
     }
 }
