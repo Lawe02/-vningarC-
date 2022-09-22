@@ -5,11 +5,11 @@ class Program
 {
     public static void Main(string[] args)
     {
-        string s = Plussa("Anka", "Quack");
-        Console.WriteLine(s);
+        decimal anka = Proc(100);
+        Console.WriteLine(anka);
     }
-    public static string Plussa(string i, string j)
+    static decimal Proc(int sum, decimal procent = 0.25m)
     {
-        return i + j;
+        return sum * procent;
     }
 }
