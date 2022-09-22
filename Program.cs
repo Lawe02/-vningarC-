@@ -11,15 +11,14 @@ class Program
         Console.WriteLine("Efterskatt  " + netto);
     }
 
-    public static decimal BruttoTillNetto(int lön)
+    public static int BruttoTillNetto(int lön)
     {
-        decimal res = 0;
         if (lön >= 30000)
-            res = lön * 0.67m;
+            lön = Convert.ToInt32(lön * 0.33m);
         else if (lön < 15000)
-            res = lön * 0.88m;
+            lön = Convert.ToInt32(lön * 0.12m);
         else if(lön <15000 && lön < 30000)
-            res = lön * 0.72m;
-        return res;
+            lön = Convert.ToInt32(lön * 0.28m);
+        return lön;
     }
 }
