@@ -5,11 +5,16 @@ class Program
 {
     public static void Main(string[] args)
     {
-        decimal anka = Proc(100);
-        Console.WriteLine(anka);
+        Console.WriteLine("Hur gammal är du");
+        int age = Convert.ToInt32(Console.ReadLine());
+        string myndig = IsMyndig(age);
+        Console.WriteLine(myndig);
     }
-    static decimal Proc(int sum, decimal procent = 0.25m)
+    static string IsMyndig(int ålder)
     {
-        return sum * procent;
+        if (ålder >= 18)
+            return "Du är myndig";
+        else
+            return "Du är inte myndig";
     }
 }
