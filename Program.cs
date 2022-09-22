@@ -5,11 +5,11 @@ class Program
 {
     public static void Main(string[] args)
     {
-        string s = GetMessage();
+        string s = Plussa("Anka", "Quack");
         Console.WriteLine(s);
     }
-    public static string GetMessage()
+    public static string Plussa(string i, string j)
     {
-        return "Hello world";
+        return i + j;
     }
 }
