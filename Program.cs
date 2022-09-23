@@ -4,21 +4,22 @@ namespace Övnnigar;
 class Program
 {
     public static void Main(string[] args)
-    {       
-        Console.WriteLine("Ange lönen");
-        int lön = Convert.ToInt32(Console.ReadLine());
-        decimal netto = BruttoTillNetto(lön);
-        Console.WriteLine("Efterskatt  " + netto);
+    {
+        
+        Console.WriteLine("Ange en vokal");
+        string bokstav = Console.ReadLine().ToUpper();
+        bool kskVokal = IsVokal(bokstav);
+        Console.WriteLine(kskVokal);
     }
 
-    public static int BruttoTillNetto(int lön)
+    public static bool IsVokal(string bkstv)
     {
-        if (lön >= 30000)
-            lön = Convert.ToInt32(lön * 0.33m);
-        else if (lön < 15000)
-            lön = Convert.ToInt32(lön * 0.12m);
-        else if(lön <15000 && lön < 30000)
-            lön = Convert.ToInt32(lön * 0.28m);
-        return lön;
+        var arr = new string[] { "A", "E", "I", "O", "U", "Y", "Å", "Ä", "Ö" };
+        if (arr.Contains(bkstv))
+        {
+            return true;
+        }
+        else
+            return false;
     }
 }
