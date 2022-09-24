@@ -7,19 +7,24 @@ class Program
     {
         
         Console.WriteLine("Ange en vokal");
-        string bokstav = Console.ReadLine().ToUpper();
-        bool kskVokal = IsVokal(bokstav);
+        string sträng = Console.ReadLine().ToUpper();
+        string kskVokal = Translate(sträng);
         Console.WriteLine(kskVokal);
     }
 
-    public static bool IsVokal(string bkstv)
+    public static string Translate(string bkstv)
     {
-        var arr = new string[] { "A", "E", "I", "O", "U", "Y", "Å", "Ä", "Ö" };
-        if (arr.Contains(bkstv))
+        var arr = new char[] { 'A', 'E', 'I', 'O', 'U', 'Y', 'Å', 'Ä', 'Ö' };
+        string translatedString = "";
+        foreach (char c in bkstv)
         {
-            return true;
+            if (arr.Contains(c))
+                translatedString += c;
+            else if (c == ' ')
+                translatedString += c;
+            else
+                translatedString += $"{c}o{c}";           
         }
-        else
-            return false;
+        return translatedString.ToLower();
     }
 }
