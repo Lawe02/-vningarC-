@@ -6,32 +6,29 @@ class Program
     public static void Main(string[] args)
     {
         
-        using (var file = File.CreateText("rader.txt"))
+        using (var file = File.CreateText("nyarader.txt"))
         {
-            file.WriteLine("Anka");
-            file.WriteLine("Gås");
-            file.WriteLine("Mås");
-            file.WriteLine("Stressmås");
-            file.WriteLine("fiskmås");
-            file.WriteLine("Plastmås");
+            file.WriteLine("Hund");
+            file.WriteLine("Katt");
+            file.WriteLine("Gam");
+            file.WriteLine("Gris");
+            file.WriteLine("ko");
+            file.WriteLine("häst");
         }
 
-        var lines = File.ReadLines("rader.txt");
-        bool varannan = true;
-        foreach(var file in lines)
+        using (var file = File.CreateText("result.txt"))
         {
-            if (varannan == true)
-            {          
-                Console.WriteLine(file);
-                varannan = false;
+            var lines = File.ReadLines("rader.txt");
+            foreach (var line in lines)
+            {
+                file.WriteLine(line);
             }
-            else
-                varannan = true;
-        }
-        
-     
+
+            var lines2 = File.ReadLines("nyarader.txt");
+            foreach (var line in lines2)
+            {
+                file.WriteLine(line);
+            }
+        }         
     }
-
-
-    
 }
