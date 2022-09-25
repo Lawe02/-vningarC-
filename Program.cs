@@ -5,30 +5,22 @@ class Program
 {
     public static void Main(string[] args)
     {
-        
-        using (var file = File.CreateText("nyarader.txt"))
+        using ( var file = File.CreateText("rader.txt"))
         {
-            file.WriteLine("Hund");
-            file.WriteLine("Katt");
-            file.WriteLine("Gam");
-            file.WriteLine("Gris");
-            file.WriteLine("ko");
-            file.WriteLine("häst");
+            file.WriteLine("Fisk");
+            file.WriteLine("Hår");
+            file.WriteLine("kyckling");
+            file.WriteLine("mat");
         }
 
-        using (var file = File.CreateText("result.txt"))
+        using ( var file = File.CreateText("radnummer.txt"))
         {
-            var lines = File.ReadLines("rader.txt");
-            foreach (var line in lines)
+            int i = 1;
+            foreach(var line in File.ReadLines("rader.txt"))
             {
-                file.WriteLine(line);
+                file.WriteLine($"{i} {line}");
+                i++;
             }
-
-            var lines2 = File.ReadLines("nyarader.txt");
-            foreach (var line in lines2)
-            {
-                file.WriteLine(line);
-            }
-        }         
+        }
     }
 }
