@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "FetiE/3LcaXg84plSkS+EHtTZ0CfYUK9b1kha47HOmUoxqHR2aT9/t7/xMwUmdbAVAsAl0dY0WxnnAwLTYO/hA==",
+  "dgSpecHash": "o7EccB+89CQh9f9JXXalNShVWBUsJlw2eo1TqWOZXtmw+o3CNSKLGYKsOh/n3wi9Y5k02HcY3iuWSTwc217lbw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Lawe Zangena\\csharp\\Övningar\\Övningar.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Lawe Zangena\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
   "logs": []
 }
