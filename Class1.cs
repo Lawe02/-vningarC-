@@ -13,15 +13,9 @@ namespace Övningar
 
         public void Go()
         {
-            var sv = new CultureInfo("sv-SV");
-            var dt = DateTime.Now;
-            
-            Console.WriteLine($"Idag är det {dt.ToString("dddd dd MMMM yyyy", sv)}");
-
-            Console.WriteLine($"Hur många dagar vill du lägga till");
-            int days = int.Parse(Console.ReadLine());
-            dt = dt.AddDays(days);
-            Console.WriteLine($"Om {days} dagar är det {dt.ToString("dddd dd MMMM yyyy")}");
+            Console.WriteLine("Mata ín datum i formatet åååå-mm-dd");
+            var dt = DateTime.Parse(Console.ReadLine());
+            Console.WriteLine(dt.Day);
         }
          
     }
