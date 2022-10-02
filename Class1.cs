@@ -13,14 +13,16 @@ namespace Övningar
 
         public void Go()
         {
-            Console.WriteLine("Mata in datum i detta format åååå-mm");
-            string date = Console.ReadLine();
-            string[] vs = date.Split('-');
+            Console.WriteLine("Mata in två datum i formatet åååå-mm-dd");
+            string dag1 = Console.ReadLine();
+            Console.WriteLine("Mata in till datum i formatet åååå-mm-dd");
+            string dag2 = Console.ReadLine();
+            var time = DateTime.Parse(dag1);
+            var time2 = DateTime.Parse(dag2);
+            var days = (time - time2);
+            Console.WriteLine(days.TotalDays);
 
-            int days = DateTime.DaysInMonth(Convert.ToInt32(vs[0]), Convert.ToInt32(vs[1]));
 
-            Console.WriteLine(days);
         }
-         
     }
 }
