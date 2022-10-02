@@ -13,16 +13,19 @@ namespace Övningar
 
         public void Go()
         {
-            Console.WriteLine("Mata in två datum i formatet åååå-mm-dd");
-            string dag1 = Console.ReadLine();
-            Console.WriteLine("Mata in till datum i formatet åååå-mm-dd");
-            string dag2 = Console.ReadLine();
-            var time = DateTime.Parse(dag1);
-            var time2 = DateTime.Parse(dag2);
-            var days = (time - time2);
-            Console.WriteLine(days.TotalDays);
+            var today = DateTime.Now.ToString("yyyyMMdd");
+            string date = "";
+            Console.Write("År : ");
+            date += Console.ReadLine();
+            Console.Write("Månad i formatet mm: ");
+            date += Console.ReadLine();
+            Console.Write("Dag i formatet dd: ");
+            date += Console.ReadLine();
 
-
+            if (date == today)
+                Console.WriteLine("Detta är idag");
+            else
+                Console.WriteLine("Detta är inte idag");
         }
     }
 }
