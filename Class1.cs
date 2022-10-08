@@ -12,77 +12,101 @@ namespace Övningar
     {
         public void Go()
         {
-            var list = new List<Dish>();
+            var list = new List<Person>();
             while(true)
             {
-                Console.WriteLine("1 to add, 2 to read");
+                Console.WriteLine("1 to add, 2 to read, 3 to move into");
                 string val = Console.ReadLine();
                 switch(val)
                 {
                     case "1":
-                        Dish mat = Goo();
+                        Person mat = Goo();
                         list.Add(mat);
                         break;
                     case "2":
                         Read(list);
                         break;
+                    case "3":
+                        Read(list);
+                        Console.WriteLine("Chose by name who to move");
+                        string name = Console.ReadLine();
+                        Person p1 = FindPerson(name, list);
+                        
+                        Console.WriteLine("Chose by name who to move into");
+                        string name2 = Console.ReadLine();
+                        Person p2 = FindPerson(name2, list);
+                        p1.MoveInto(p1, p2);
+                        list.Add(p1);
+                        break;
                 }
             }
         }
-        public void Read(List<Dish> list)
+        public void Read(List<Person> list)
         {
-            Console.WriteLine("Ange 0 för vegansk, 1 för vegetarisk eller 2 för kött");
-            Type typ = (Type)int.Parse(Console.ReadLine());
-            foreach(Dish rätt in list)
+            foreach(Person p in list)
             {
-                if (rätt.Type == typ)
-                    Console.WriteLine(rätt);
+                Console.WriteLine(p);
             }
         }
-
-        public Dish Goo()
+        public Person FindPerson(string name, List<Person> list)
         {
-            Dish mat = new Dish(1, 1, Type.Vegetarian, "Hår");
+            Person person = new Person(DateTime.Now);
+            foreach(Person p in list)
+            {
+                if (name == p.Name)
+                    person = p;
+            }
+            return person;
+        }
+
+        public Person Goo()
+        {
+            Person person = new Person(DateTime.Now);
           
-                Console.WriteLine("Enter Lunchname");
-                mat.Name = Console.ReadLine();
-                Console.WriteLine("Enter amunt of cals");
-                mat.Cals = int.Parse(Console.ReadLine());
-                Console.WriteLine("Enter price");
-                mat.Price = int.Parse(Console.ReadLine());
-                mat.Type = (Type)int.Parse(Console.ReadLine());
-            return mat;
+            Console.WriteLine("Enter birthdate in yyyy-mm-dd");
+            person.Time = DateTime.Parse(Console.ReadLine());
+            Console.WriteLine("Enter where your street-address");
+            person.GatuAddress = Console.ReadLine();
+            Console.WriteLine("Enter postal code");
+            person.PostNummer = int.Parse(Console.ReadLine());
+            Console.WriteLine("Where you live");
+            person.Postort = Console.ReadLine();
+            Console.WriteLine("Enter your namne");
+            person.Name = Console.ReadLine();
                 
-            
+            return person;
+                         
         }
     }
-    public enum Type
-    {
-        Vegan,
-        Vegetarian,
-        Meat
-    }
-    public class Dish
+    public class Person
     {
         private string name;
-        private int price;
-        private Type type;
-        private int cals;
-        public int Price { get { return price; } set { price = value; } }
+        private DateTime time;
+        private string postOrt;
+        private string gatuAddress;
+        private int postNummer;
+        public DateTime Time { get { return time; } set { time = value; } }
         public string Name { get { return name; } set { name = value; } }
-        public Type Type { get { return type; } set { type = value; } }
-        public int Cals { get { return cals; } set { cals = value; } }
-
-        public Dish(int price, int cals, Type type, string name)
+        public string Postort { get { return postOrt; } set {  postOrt = value; } }
+        public string GatuAddress  { get { return gatuAddress; } set { gatuAddress = value; } }
+        public int PostNummer { get { return postNummer; } set { postNummer = value; } }
+        public Person(DateTime time)
         {
-            this.price = price;
-            this.cals = cals;
-            this.type = type;
-            this.name = name;
+            this.time = time;
         }
         public override string ToString()
         {
-            return "Price: " + Price + "  Cals: " + Cals + "  Type: " + Type + "  Name: " + Name;
+            return "Name: " + Name + "  County: " + Postort + "  Address: " + GatuAddress +"  FödelseDatum: "+ Time.ToString("yyyy-mm-dd");
+        }
+        public void ChangeAddress(string postort, string gatuAddress, int postalCode)
+        {
+            this.postOrt = postort;
+            this.gatuAddress = gatuAddress;
+            this.postNummer = postalCode;
+        }
+        public void MoveInto(Person person,Person person2)
+        {
+            person.ChangeAddress(person2.Postort, person2.GatuAddress, person2.PostNummer);
         }
 
     }
