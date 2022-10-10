@@ -15,7 +15,7 @@ namespace Övningar
             var list = new List<Person>();
             while(true)
             {
-                Console.WriteLine("1 to add, 2 to read, 3 to move into");
+                Console.WriteLine("1 to add, 2 to read, 3 to move into, 4 to gat age in full years");
                 string val = Console.ReadLine();
                 switch(val)
                 {
@@ -37,6 +37,13 @@ namespace Övningar
                         Person p2 = FindPerson(name2, list);
                         p1.MoveInto(p1, p2);
                         list.Add(p1);
+                        break;
+                    case "4":
+                        Console.WriteLine("Enter the name of who you want years from");
+                        Person p = FindPerson(Console.ReadLine(), list);
+                        int years = p.FullYears(p);
+                        Console.WriteLine($"{p.Name} is {years} years old");
+
                         break;
                 }
             }
@@ -107,6 +114,12 @@ namespace Övningar
         public void MoveInto(Person person,Person person2)
         {
             person.ChangeAddress(person2.Postort, person2.GatuAddress, person2.PostNummer);
+        }
+        public int FullYears(Person person)
+        {
+            TimeSpan TS = DateTime.Now - person.Time;
+            double years = TS.TotalDays / 365.25;
+            return Convert.ToInt32(years);
         }
 
     }
