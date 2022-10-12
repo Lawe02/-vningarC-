@@ -12,115 +12,142 @@ namespace Övningar
     {
         public void Go()
         {
-            var list = new List<Person>();
+            var anka = new Book(7);
+            List<Book> library = new List<Book>();
             while(true)
             {
-                Console.WriteLine("1 to add, 2 to read, 3 to move into, 4 to gat age in full years");
-                string val = Console.ReadLine();
-                switch(val)
+                Console.WriteLine("1: Add book, 2: Borrow book, 3: Return book. 4: Show inventory:");
+
+                switch(Console.ReadLine())
                 {
                     case "1":
-                        Person mat = Goo();
-                        list.Add(mat);
+                        Console.WriteLine("Enter bookname to add book");
+                        string bookName = Console.ReadLine();
+                        if (IfExists(bookName, library))
+                        {
+                            IncreasAmount(bookName, library);
+                        }
+                        else
+                            library.Add(AddBook(bookName));
                         break;
-                    case "2":
-                        Read(list);
-                        break;
-                    case "3":
-                        Read(list);
-                        Console.WriteLine("Chose by name who to move");
-                        string name = Console.ReadLine();
-                        Person p1 = FindPerson(name, list);
-                        
-                        Console.WriteLine("Chose by name who to move into");
-                        string name2 = Console.ReadLine();
-                        Person p2 = FindPerson(name2, list);
-                        p1.MoveInto(p1, p2);
-                        list.Add(p1);
-                        break;
-                    case "4":
-                        Console.WriteLine("Enter the name of who you want years from");
-                        Person p = FindPerson(Console.ReadLine(), list);
-                        int years = p.FullYears(p);
-                        Console.WriteLine($"{p.Name} is {years} years old");
 
+                    case "2":
+                        Console.WriteLine("Enter bookname that you want to borrow");
+                        string title = Console.ReadLine();
+                        BorrowBook(title, library);                       
                         break;
+
+                    case "3":
+                        Console.WriteLine("Enter bookname that you want to return");
+                        string s = Console.ReadLine();
+                        ReturnBook(s,library);
+                        break;
+
+                    case "4":
+                        foreach(Book b in library)
+                        {
+                            Console.WriteLine($"{b.Title} {b.Amount - b.BorrowedBooks}");
+                        }
+                        break;
+
                 }
             }
         }
-        public void Read(List<Person> list)
+        public void BorrowBook(string bookName, List<Book> list)
         {
-            foreach(Person p in list)
+            Book book = new Book(1);
+            foreach(Book b in list)
             {
-                Console.WriteLine(p);
+                if(b.Title == bookName)
+                {
+                    book = b;
+                }
+                try
+                {
+                    book.BorrowedBooks++;
+                }
+                catch(Exception)
+                {
+                    Console.WriteLine("Whe have no examples of this book left to borrow out");
+                }
             }
         }
-        public Person FindPerson(string name, List<Person> list)
+        public void ReturnBook(string title, List<Book> list)
         {
-            Person person = new Person(DateTime.Now);
-            foreach(Person p in list)
+            foreach(Book b in list)
             {
-                if (name == p.Name)
-                    person = p;
+                try
+                {
+                    if (b.Title == title)
+                        b.BorrowedBooks--;
+                }catch(Exception)
+                {
+                    Console.WriteLine("All books are returned");
+                }
             }
-            return person;
         }
-
-        public Person Goo()
+        public Book AddBook(string bookName)
         {
-            Person person = new Person(DateTime.Now);
-          
-            Console.WriteLine("Enter birthdate in yyyy-mm-dd");
-            person.Time = DateTime.Parse(Console.ReadLine());
-            Console.WriteLine("Enter where your street-address");
-            person.GatuAddress = Console.ReadLine();
-            Console.WriteLine("Enter postal code");
-            person.PostNummer = int.Parse(Console.ReadLine());
-            Console.WriteLine("Where you live");
-            person.Postort = Console.ReadLine();
-            Console.WriteLine("Enter your namne");
-            person.Name = Console.ReadLine();
-                
-            return person;
-                         
+            Book book = new Book(1);
+            book.Title = bookName;
+                return book;       
+        }
+        public void IncreasAmount(string bookName, List<Book> list)
+        {
+            foreach(Book b in list)
+            {
+                if (b.Title == bookName)
+                    b.Amount++;
+            }
+        }
+        public bool IfExists(string bookName, List<Book> list)
+        {
+            bool exists = false;
+            foreach(Book b in list)
+            {
+                if (b.Title == bookName)
+                    exists = true;
+            }
+            return exists;
         }
     }
-    public class Person
-    {
-        private string name;
-        private DateTime time;
-        private string postOrt;
-        private string gatuAddress;
-        private int postNummer;
-        public DateTime Time { get { return time; } set { time = value; } }
-        public string Name { get { return name; } set { name = value; } }
-        public string Postort { get { return postOrt; } set {  postOrt = value; } }
-        public string GatuAddress  { get { return gatuAddress; } set { gatuAddress = value; } }
-        public int PostNummer { get { return postNummer; } set { postNummer = value; } }
-        public Person(DateTime time)
-        {
-            this.time = time;
+    public class Book
+    { 
+        private int _amount;
+        private string _title;
+        private int _borrowedBooks;
+        public string Title { get { return _title; } 
+            set {
+                if (value == null)
+                    throw new ArgumentNullException();
+                else
+                 _title = value;  
+            }
+        }
+        public int BorrowedBooks { get { return _borrowedBooks; }
+            set {
+                if (value > _amount)
+                    throw new ArgumentOutOfRangeException();
+                else
+                _borrowedBooks = value; 
+            }
+        }
+        public int Amount { get { return _amount; } 
+            set 
+            {
+                if (value < 0)
+                    throw new ArgumentOutOfRangeException();
+                else
+                _amount = value; 
+            } 
         }
         public override string ToString()
         {
-            return "Name: " + Name + "  County: " + Postort + "  Address: " + GatuAddress +"  FödelseDatum: "+ Time.ToString("yyyy-mm-dd");
+            return "Title: " + Title + "  Amount: " + Amount;
         }
-        public void ChangeAddress(string postort, string gatuAddress, int postalCode)
+        public Book(int amount)
         {
-            this.postOrt = postort;
-            this.gatuAddress = gatuAddress;
-            this.postNummer = postalCode;
+            _amount = amount;
         }
-        public void MoveInto(Person person,Person person2)
-        {
-            person.ChangeAddress(person2.Postort, person2.GatuAddress, person2.PostNummer);
-        }
-        public int FullYears(Person person)
-        {
-            TimeSpan TS = DateTime.Now - person.Time;
-            double years = TS.TotalDays / 365.25;
-            return Convert.ToInt32(years);
-        }
-
-    }
+    }  
 }
