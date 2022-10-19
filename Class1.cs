@@ -1,153 +1,190 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Övningar
+﻿namespace Övningar
 {
     internal class Class1
     {
         public void Go()
         {
-            var anka = new Book(7);
-            List<Book> library = new List<Book>();
-            while(true)
+         List<Student> students = new List<Student>();
+
+            while (true)
             {
-                Console.WriteLine("1: Add book, 2: Borrow book, 3: Return book. 4: Show inventory:");
-
-                switch(Console.ReadLine())
+            Console.WriteLine("1. beräkna antal kursdagar, 2. Sätt betyg, 3. Hämta betyg, 4. KursInfo, 5. Lägg till kurs, 6. Lägg till student");
+            string s = Console.ReadLine();
+            switch(s)
                 {
-                    case "1":
-                        Console.WriteLine("Enter bookname to add book");
-                        string bookName = Console.ReadLine();
-                        if (IfExists(bookName, library))
-                        {
-                            IncreasAmount(bookName, library);
-                        }
-                        else
-                            library.Add(AddBook(bookName));
-                        break;
+                case "1":
+                    Console.WriteLine("Enter student name");
+                    Student student4 = GetStudent(Console.ReadLine(), students);
+                    Console.WriteLine("Enter CourseName");
+                    Course kurs4 = student4.GetCourse(Console.ReadLine());
+                    Console.WriteLine($"Kursen har {kurs4.CountDays()} kursdagar i sig");
+                    break;
 
-                    case "2":
-                        Console.WriteLine("Enter bookname that you want to borrow");
-                        string title = Console.ReadLine();
-                        BorrowBook(title, library);                       
-                        break;
+                case "2":
+                    Console.WriteLine("Enter student name");
+                    Student student2 = GetStudent(Console.ReadLine(), students);
+                    Console.WriteLine("Enter CourseName that will get graded");
+                    Course kurs = student2.GetCourse(Console.ReadLine());
+                    Console.WriteLine("Enter grade to the course");
+                    bool g = Betyg.TryParse(Console.ReadLine(), out Betyg h);
+                    student2.SetGrades(kurs, h);
 
-                    case "3":
-                        Console.WriteLine("Enter bookname that you want to return");
-                        string s = Console.ReadLine();
-                        ReturnBook(s,library);
-                        break;
+                    break;
 
-                    case "4":
-                        foreach(Book b in library)
-                        {
-                            Console.WriteLine($"{b.Title} {b.Amount - b.BorrowedBooks}");
-                        }
-                        break;
+                case "3":
+                    foreach (Student student3 in students)
+                    {
+                        Console.WriteLine($"Namn: {student3.Name}");
+                    }
+                    Console.WriteLine("Enter student namn that you want to get grades from");
+                    string name2 = Console.ReadLine();
+                    foreach(Student stud in students)
+                    {
+                        if(stud.Name == name2)
+                            stud.ShowGrades();
+                    }
+                    break;
 
+                case "4":
+                    foreach (Student p in students)
+                    {
+                        Console.WriteLine($"{p.Name}");
+                        p.ShowGrades();
+                    }
+                    break;
+
+                case "5":
+                    Console.WriteLine("Enter lastname of student that will be assigned to the course");
+                    Student st = GetStudent(Console.ReadLine(), students);
+                    Console.WriteLine("Skriv in kursnamn");
+                    string name = Console.ReadLine();
+                    Console.WriteLine("Skriv in startDatum i åååå-mm-dd");
+                    DateTime start = DateTime.Parse(Console.ReadLine());
+                    Console.WriteLine("Skriv in slutDatum i formatet åååå-mm-dd");
+                    DateTime end = DateTime.Parse(Console.ReadLine());
+                    st.ReturnGrades(new Course(3, name, start, end));  
+                    break;
+
+                case "6":
+                    Student student = AddStudent();
+                    students.Add(student);
+                    foreach(Student p in students)
+                    {
+                        Console.WriteLine($"{p.Name}");
+                            p.ShowGrades();
+                    } 
+                    break;
                 }
             }
         }
-        public void BorrowBook(string bookName, List<Book> list)
-        {
-            Book book = new Book(1);
-            foreach(Book b in list)
-            {
-                if(b.Title == bookName)
-                {
-                    book = b;
-                }
-                try
-                {
-                    book.BorrowedBooks++;
-                }
-                catch(Exception)
-                {
-                    Console.WriteLine("Whe have no examples of this book left to borrow out");
-                }
-            }
+        public Student AddStudent()
+        {          
+            Console.WriteLine("Enter firstName");
+            string s = Console.ReadLine();
+            Console.WriteLine("Ente lastName");
+            string ls = Console.ReadLine();
+            Console.WriteLine("Enter email");
+            string mail = Console.ReadLine();
+            Console.WriteLine("Enter tel"); 
+            int tel = int.Parse(Console.ReadLine());
+            Student student = new Student(s, mail, tel, ls);
+            return student;
         }
-        public void ReturnBook(string title, List<Book> list)
+
+        public Student GetStudent(string name, List<Student> list)
         {
-            foreach(Book b in list)
-            {
-                try
-                {
-                    if (b.Title == title)
-                        b.BorrowedBooks--;
-                }catch(Exception)
-                {
-                    Console.WriteLine("All books are returned");
-                }
-            }
-        }
-        public Book AddBook(string bookName)
-        {
-            Book book = new Book(1);
-            book.Title = bookName;
-                return book;       
-        }
-        public void IncreasAmount(string bookName, List<Book> list)
-        {
-            foreach(Book b in list)
-            {
-                if (b.Title == bookName)
-                    b.Amount++;
-            }
-        }
-        public bool IfExists(string bookName, List<Book> list)
-        {
-            bool exists = false;
-            foreach(Book b in list)
-            {
-                if (b.Title == bookName)
-                    exists = true;
-            }
-            return exists;
+            Student s = new Student("","",2,"");
+
+            foreach(Student student in list)
+                if (student.Name == name)
+                    s = student;
+
+            return s;
         }
     }
-    public class Book
-    { 
-        private int _amount;
-        private string _title;
-        private int _borrowedBooks;
-        public string Title { get { return _title; } 
-            set {
-                if (value == null)
-                    throw new ArgumentNullException();
-                else
-                 _title = value;  
-            }
+    public enum Betyg
+    {
+        Ig,
+        G,
+        Vg
+    }
+    public class Course
+    {
+        private string name;
+        private int points;
+        private DateTime start;
+        private DateTime end;
+        private Betyg grade;
+        
+        public string Name { get { return name; } set { name = value; } }
+        public int Points { get { return points; } }
+        public DateTime Start { get { return start; } set { start = value; } }
+        public DateTime End { get { return end; } set { end = value; } }
+        public Betyg Grade { get { return grade; } set { grade = value; } }
+
+        public Course(int points, string name, DateTime start, DateTime end)
+        {
+            this.name = name;
+            this.points = points;
+            this.end = end;
+            this.start = start;
         }
-        public int BorrowedBooks { get { return _borrowedBooks; }
-            set {
-                if (value > _amount)
-                    throw new ArgumentOutOfRangeException();
-                else
-                _borrowedBooks = value; 
-            }
-        }
-        public int Amount { get { return _amount; } 
-            set 
+
+        public int CountDays()
+        {
+            var startDate = start;
+            var workDays = 0;
+            while(startDate <= end)
             {
-                if (value < 0)
-                    throw new ArgumentOutOfRangeException();
-                else
-                _amount = value; 
-            } 
+                if (startDate.DayOfWeek != DayOfWeek.Sunday && startDate.DayOfWeek != DayOfWeek.Saturday)
+                    workDays++;
+                
+                startDate = startDate.AddDays(1);
+            }
+            return workDays;
         }
-        public override string ToString()
+    }
+    public class Student 
+    {
+        private string name;
+        private string lastName;
+        private string email;
+        private int tel;
+        public Student(string name, string email, int tel, string lastName) 
         {
-            return "Title: " + Title + "  Amount: " + Amount;
+            this.name = name;
+            this.email = email;
+            this.tel = tel;
+            this.lastName = lastName;
         }
-        public Book(int amount)
+        public string Name { get { return lastName; } }
+        public List<Course> Courses = new List<Course>();   
+        public void ReturnGrades(Course c)
         {
-            _amount = amount;
+            Courses.Add(c); 
         }
-    }  
+        public void ShowGrades()
+        {
+            foreach (var c in Courses)
+            {
+                Console.WriteLine($"Kursnamn: {c.Name} Betyg: {c.Grade}");
+            }
+        }
+        public Course GetCourse(string name)
+        {
+            Course course = new Course(3, "", DateTime.Now, DateTime.Now);
+
+            foreach (Course c in Courses)
+                if (name == c.Name)
+                    course = c;
+            
+            return course;
+        }
+        public void SetGrades(Course c, Betyg b)
+        {
+            c.Grade = b;
+        }
+
+    }
+   
 }
