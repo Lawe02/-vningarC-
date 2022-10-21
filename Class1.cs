@@ -1,188 +1,112 @@
-﻿namespace Övningar
+﻿using Newtonsoft.Json;
+
+namespace Övningar
 {
     internal class Class1
     {
         public void Go()
         {
-         List<Student> students = new List<Student>();
+            List<Dog> list = GetFromFile();
 
-            while (true)
+            while(true)
             {
-            Console.WriteLine("1. beräkna antal kursdagar, 2. Sätt betyg, 3. Hämta betyg, 4. KursInfo, 5. Lägg till kurs, 6. Lägg till student");
-            string s = Console.ReadLine();
-            switch(s)
-                {
-                case "1":
-                    Console.WriteLine("Enter student name");
-                    Student student4 = GetStudent(Console.ReadLine(), students);
-                    Console.WriteLine("Enter CourseName");
-                    Course kurs4 = student4.GetCourse(Console.ReadLine());
-                    Console.WriteLine($"Kursen har {kurs4.CountDays()} kursdagar i sig");
-                    break;
-
-                case "2":
-                    Console.WriteLine("Enter student name");
-                    Student student2 = GetStudent(Console.ReadLine(), students);
-                    Console.WriteLine("Enter CourseName that will get graded");
-                    Course kurs = student2.GetCourse(Console.ReadLine());
-                    Console.WriteLine("Enter grade to the course");
-                    bool g = Betyg.TryParse(Console.ReadLine(), out Betyg h);
-                    student2.SetGrades(kurs, h);
-
-                    break;
-
-                case "3":
-                    foreach (Student student3 in students)
+                Console.WriteLine("1. Registrera hund, 2. Läs ut hundar baserat på svansLängd, 3. Ta bort hund, 4. Avlsuta programmet");
+                switch(Console.ReadLine())
                     {
-                        Console.WriteLine($"Namn: {student3.Name}");
-                    }
-                    Console.WriteLine("Enter student namn that you want to get grades from");
-                    string name2 = Console.ReadLine();
-                    foreach(Student stud in students)
-                    {
-                        if(stud.Name == name2)
-                            stud.ShowGrades();
-                    }
-                    break;
 
-                case "4":
-                    foreach (Student p in students)
-                    {
-                        Console.WriteLine($"{p.Name}");
-                        p.ShowGrades();
-                    }
-                    break;
+                    case "1":
+                        Dog dog = CreateDog();
+                        list.Add(dog);
+                        break;
+                    
+                    case "2":
+                        Console.WriteLine("Enter minimum tale length");
+                        int length = Convert.ToInt32(Console.ReadLine());
+                        foreach(Dog d in list)
+                        {
+                            if(d.TaleLength >= (double)length)
+                            {
+                                Console.WriteLine(d);
+                            }
+                        }
+                        break;
 
-                case "5":
-                    Console.WriteLine("Enter lastname of student that will be assigned to the course");
-                    Student st = GetStudent(Console.ReadLine(), students);
-                    Console.WriteLine("Skriv in kursnamn");
-                    string name = Console.ReadLine();
-                    Console.WriteLine("Skriv in startDatum i åååå-mm-dd");
-                    DateTime start = DateTime.Parse(Console.ReadLine());
-                    Console.WriteLine("Skriv in slutDatum i formatet åååå-mm-dd");
-                    DateTime end = DateTime.Parse(Console.ReadLine());
-                    st.ReturnGrades(new Course(3, name, start, end));  
-                    break;
+                    case "3":
+                        Console.WriteLine("Enter name of dog that will be deleted");
+                        string name = Console.ReadLine();
+                        bool deleted = false;
+                        foreach(Dog d in list.ToList())
+                        {
+                            if (d.Name == name)
+                            {
+                                list.Remove(d);
+                                deleted = true;
+                            }
+                        }
+                        if (!deleted)
+                            Console.WriteLine($"A dog with the name {name} could not be found in the list");
 
-                case "6":
-                    Student student = AddStudent();
-                    students.Add(student);
-                    foreach(Student p in students)
-                    {
-                        Console.WriteLine($"{p.Name}");
-                            p.ShowGrades();
-                    } 
-                    break;
+                        break;
+
+                    case "4":
+                        SaveAllDogs(list);
+                        break;
+
                 }
             }
         }
-        public Student AddStudent()
-        {          
-            Console.WriteLine("Enter firstName");
-            string s = Console.ReadLine();
-            Console.WriteLine("Ente lastName");
-            string ls = Console.ReadLine();
-            Console.WriteLine("Enter email");
-            string mail = Console.ReadLine();
-            Console.WriteLine("Enter tel"); 
-            int tel = int.Parse(Console.ReadLine());
-            Student student = new Student(s, mail, tel, ls);
-            return student;
-        }
-
-        public Student GetStudent(string name, List<Student> list)
+        public void SaveAllDogs(List<Dog> list)
         {
-            Student s = new Student("","",2,"");
-
-            foreach(Student student in list)
-                if (student.Name == name)
-                    s = student;
-
-            return s;
+            string content = JsonConvert.SerializeObject(list);
+            File.WriteAllText("TextFile1.json", content);
         }
-    }
-    public enum Betyg
-    {
-        Ig,
-        G,
-        Vg
-    }
-    public class Course
-    {
-        private string name;
-        private int points;
-        private DateTime start;
-        private DateTime end;
-        private Betyg grade;
-        
-        public string Name { get { return name; } set { name = value; } }
-        public int Points { get { return points; } }
-        public DateTime Start { get { return start; } set { start = value; } }
-        public DateTime End { get { return end; } set { end = value; } }
-        public Betyg Grade { get { return grade; } set { grade = value; } }
-
-        public Course(int points, string name, DateTime start, DateTime end)
+        public List<Dog> GetFromFile()
         {
-            this.name = name;
-            this.points = points;
-            this.end = end;
-            this.start = start;
+            var list = new List<Dog>();
+            string content = File.ReadAllText("TextFile1.json");
+            list = JsonConvert.DeserializeObject<List<Dog>>(content);
+            return list;
         }
-
-        public int CountDays()
+        public Dog CreateDog()
         {
-            var startDate = start;
-            var workDays = 0;
-            while(startDate <= end)
-            {
-                if (startDate.DayOfWeek != DayOfWeek.Sunday && startDate.DayOfWeek != DayOfWeek.Saturday)
-                    workDays++;
-                
-                startDate = startDate.AddDays(1);
-            }
-            return workDays;
+            Console.WriteLine("Enter DogName");
+            string name = Console.ReadLine();
+            Console.WriteLine("Enter DogRace");
+            string race = Console.ReadLine();
+            Console.WriteLine("Enter DogAge");
+            int age = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Enter DogWeight");
+            int weight = Convert.ToInt32(Console.ReadLine());
+            Dog dog = new Dog(name, race, age, weight);
+            return dog;
         }
     }
-    public class Student 
+    public class Dog
     {
-        private string name;
-        private string lastName;
-        private string email;
-        private int tel;
-        public Student(string name, string email, int tel, string lastName) 
-        {
-            this.name = name;
-            this.email = email;
-            this.tel = tel;
-            this.lastName = lastName;
-        }
-        public string Name { get { return lastName; } }
-        public List<Course> Courses = new List<Course>();   
-        public void ReturnGrades(Course c)
-        {
-            Courses.Add(c); 
-        }
-        public void ShowGrades()
-        {
-            foreach (var c in Courses)
-            {
-                Console.WriteLine($"Kursnamn: {c.Name} Betyg: {c.Grade}");
-            }
-        }
-        public Course GetCourse(string name)
-        {
-            Course course = new Course(3, "", DateTime.Now, DateTime.Now);
+        private string _name;
+        private string _race;
+        private int _age;
+        private int _weight;
+        private double _taleLength;
 
-            foreach (Course c in Courses)
-                if (name == c.Name)
-                    course = c;
-            
-            return course;
-        }
-        public void SetGrades(Course c, Betyg b)
+        public Dog(string name, string race, int age, int weight)
         {
-            c.Grade = b;
+            _name = name;
+            _race = race;
+            _age = age;
+            _weight = weight;
+            if (race != "tax")
+                _taleLength = (age * weight) / 10;
+            else _taleLength = 3.7;
+        }
+        public string Name { get { return _name; } set { _name = value; } }
+        public double TaleLength { get { return _taleLength; } set { _taleLength = value; } } 
+        public string Race { get  { return _race; } set { _race = value; } }
+        public int Weight { get { return _weight; } set { _weight = value; } }
+        public int Age { get { return _age; } set { _age = value; } }
+        public override string ToString()
+        {
+            return $"Namn: {_name}, Ras: {_race}, Ålder: {_age}, Vikt: {_weight}, SvansLängd: {_taleLength}";
         }
 
     }
