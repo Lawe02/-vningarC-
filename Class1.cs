@@ -6,6 +6,16 @@ namespace Övningar
     {
         public void Go()
         {
+            List<Shape> shapes = new List<Shape>();
+            var p = new Point(1, 1);
+            Circle s1 = new Circle(p, 4);
+            shapes.Add(s1);
+            Circle s2 = new Circle(p, 2);
+            shapes.Add(s2);
+            Rectangle r1 = new Rectangle(p, 3, 6);
+            shapes.Add(r1);
+            foreach (Shape s in shapes)
+                s.Draw();
 
         }
 
@@ -38,5 +48,41 @@ namespace Övningar
             Console.WriteLine($"x = {_point.X}, y = {_point.X}");
         }
     }
+    public class Circle : Shape
+    {
+        private float _radius;
+        public Circle(Point point, float radius):base(point)
+        {
+            _radius = radius;
+        }
+        public override void Draw()
+        {
+            Console.WriteLine($"Drtawing a circle, X{Point.X}, Y{Point.Y} raduis{_radius}");
+        }
+        public double GetArea()
+        {
+            return _radius * _radius * 3.14; 
+        }
+        public double GetCirCumference()
+        {
+            return (_radius * 2) * 3.14;
+        }
+    }
+    public class Rectangle : Shape
+    {
+        private int _base;
+        private int _height;
+        public Rectangle(Point point, int b, int h):base(point)
+        {
+            _base = b;
+            _height = h;
+        }
+
+        public override void Draw()
+        {
+            Console.WriteLine($"Base {_base}, Height {_height},. position x {Point.X}  position y {Point.Y}");
+        }
+    }
+        
 }
 
